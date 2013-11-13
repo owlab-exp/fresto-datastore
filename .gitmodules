@@ -1,0 +1,3 @@
+[submodule "fresto-events"]
+	path = fresto-events
+	url = https://github.com/owlab/fresto-events.git
