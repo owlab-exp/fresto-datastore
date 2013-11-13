@@ -1,0 +1,67 @@
+<project name="Event Store" default="dist" basedir=".">
+<!-- Define the properties used by the build -->
+<property name="jar.name"    value="fresto-datastore"/>
+<property name="build.home"    value="${basedir}/build"/>
+<property name="dist.home"     value="${basedir}/dist"/>
+<property name="docs.home"     value="${basedir}/docs"/>
+<property name="lib.home"     value="${basedir}/lib"/>
+<property name="src.home"      value="${basedir}/src"/>
+<property name="src-fresto-events.home"      value="${basedir}/fresto-events/gen-java"/>
+<property name="test.home"      value="${basedir}/test"/>
+
+<target name="help">
+	<echo>You can use the following targets:</echo>
+	<echo> </echo>
+	<echo>  help    : (default) Prints this message </echo>
+	<echo>  clean   : Deletes work directories</echo>
+	<echo>  compile : Compiles </echo>
+	<echo>  dist 	: Pacakge as a jar</echo>
+	<echo></echo>
+	<echo>For example, to clean, compile, and package all at once, run:</echo>
+	<echo>prompt> ant dist </echo>
+</target>
+
+<!-- Define the CLASSPATH -->
+<path id="compile.classpath">
+	<fileset dir="${lib.home}">
+		<include name="*.jar"/>
+	</fileset>
+</path>
+
+<target name="clean" description="Delete old build and dist directories">
+	<delete dir="${build.home}"/>
+	<delete dir="${dist.home}"/>
+</target>
+
+<target name="prepare" depends="" description="Create working dirs and copy static files to work dir">
+	<mkdir  dir="${dist.home}"/>
+	<mkdir  dir="${build.home}/classes"/>
+</target>
+
+<target name="compile" depends="prepare" description="Compile Java sources">
+	<javac includeantruntime="false" 
+		srcdir="${src.home}/java" 
+		destdir="${build.home}/classes"
+		debug="true"
+		debuglevel="lines,source">
+		<!--
+		<compilerarg value="-Xlint:deprecation"/>
+		<compilerarg value="-Xlint:unchecked"/>
+		-->
+		<classpath refid="compile.classpath"/>
+		<src path="${src-fresto-events.home}"/>
+		<src path="${src.home}/java"/>
+		<src path="${test.home}/java"/>
+	</javac>
+	<!--
+	<javac srcdir="${test.home}/java" destdir="${build.home}/classes">
+		<classpath refid="compile.classpath"/>
+	</javac>
+	-->
+</target>
+
+<target name="dist" depends="compile" description="Create a jar file for binary distribution">
+	<jar jarfile="${dist.home}/${jar.name}.jar" basedir="${build.home}/classes"/>
+</target>
+
+</project> 
