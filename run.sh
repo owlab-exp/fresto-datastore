@@ -5,4 +5,4 @@ CLASSPATH=$CLASSPATH:./lib-etc/*
 export CLASSPATH
 
 #java -Xmx512m -Xms512m -XX:+AggressiveOpts -XX:CompileThreshold=200 -Djava.util.logging.config.file=./src/resource/logging_$1.properties -cp $CLASSPATH $@
-java -Xmx512m -Xms256m -XX:+AggressiveOpts -XX:CompileThreshold=200 -cp $CLASSPATH $@
+java -Xmx512m -Xms256m -XX:+AggressiveOpts -XX:CompileThreshold=200 -Dlogback.configurationFile=./src/resource/logback-writerd.xml -cp $CLASSPATH $@

@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
-import java.util.logging.Logger;
 import java.io.IOException;
 
 import org.apache.thrift.TDeserializer;
@@ -53,9 +52,13 @@ import com.thinkaurelius.titan.core.TitanGraph;
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Vertex;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class TitanEventWriterD {
-	private static String THIS_CLASS_NAME = "TitanEventWriterD";
-	private static Logger LOGGER = Logger.getLogger(THIS_CLASS_NAME);
+	//private static String THIS_CLASS_NAME = "TitanEventWriterD";
+	//private static Logger LOGGER = Logger.getLogger(THIS_CLASS_NAME);
+	final static Logger LOGGER = LoggerFactory.getLogger(TitanEventWriterD.class);
 
 	private static String frontHost;
 	private static String frontPort;
@@ -91,19 +94,19 @@ public class TitanEventWriterD {
 
 	public static void main(String[] args) throws Exception {
 		if(args.length <  3) {
-			LOGGER.severe("Argumests needed : <frontHost> <frontPort> <dbHost> <max commit count>");
+			LOGGER.error("Argumests needed : <frontHost> <frontPort> <dbHost> <max commit count>");
 			System.exit(1);
 		} else {
 				frontHost = args[0];
 				frontPort = args[1]; 
 				dbHost = args[2];
 				if(args.length == 3) {
-					LOGGER.info("Default commit count (" + maxCommitCount + ") used.");
+					LOGGER.info("Default max commit count (" + maxCommitCount + ") used.");
 				} else {
 					try {
 						maxCommitCount = Integer.parseInt(args[3]);
 					} catch(NumberFormatException e) {
-						LOGGER.severe("Commit count should be an integer");
+						LOGGER.error("Commit count should be an integer");
 					}
 				}
 		}
@@ -113,12 +116,12 @@ public class TitanEventWriterD {
 		final FrestoEventQueue frestoEventQueue = new FrestoEventQueue();
 		
 		final Thread queueMonitorThread = new Thread() {
-			Logger _LOGGER = Logger.getLogger("writerThread");
+			//Logger _LOGGER = Logger.getLogger("writerThread");
 			@Override
 			public void run() {
 				while(work) {
 					try {
-						_LOGGER.info("frestoEventQueue size = " + frestoEventQueue.size());
+						LOGGER.info("frestoEventQueue size = " + frestoEventQueue.size());
 						Thread.sleep(1000);
 					} catch(InterruptedException ie) {
 					}
@@ -129,7 +132,7 @@ public class TitanEventWriterD {
 
 
 		final Thread writerThread = new Thread() {
-			Logger _LOGGER = Logger.getLogger("writerThread");
+			//Logger _LOGGER = Logger.getLogger("writerThread");
 			@Override
 			public void run() {
 				//StopWatch _watch = new JavaLogStopWatch(_LOGGER);
@@ -161,7 +164,6 @@ public class TitanEventWriterD {
 					// To wait until at least one event in queue
 					if(frestoEventQueue.isEmpty()) {
 						try {
-							//_LOGGER.info("FrestoEventQueue is empty. Waiting " + SLEEP_TIME + "ms...");
 							Thread.sleep(SLEEP_TIME);
 							continue;
 						} catch(InterruptedException ie) {
@@ -189,7 +191,7 @@ public class TitanEventWriterD {
 
 						if(count == maxCommitCount) {
 							eventWriter.commitGraph();
-							_LOGGER.info(count + " events processed for " + elapsedTime + " ms. (total time " + duration + " ms.) Remaining events " + frestoEventQueue.size());
+							LOGGER.info(count + " events processed for " + elapsedTime + " ms. (total time " + duration + " ms.) Remaining events " + frestoEventQueue.size());
 							
 							count = 0;
 							elapsedTime = 0;
@@ -200,13 +202,13 @@ public class TitanEventWriterD {
 
 					eventWriter.commitGraph();
 
-					_LOGGER.info(count + " events processed for " + elapsedTime + " ms. (total time " + duration + " ms.) Remaining events " + frestoEventQueue.size());
+					LOGGER.info(count + " events processed for " + elapsedTime + " ms. (total time " + duration + " ms.) Remaining events " + frestoEventQueue.size());
 
 					count = 0;
 					elapsedTime = 0;
 					duration = 0;
 				}
-				_LOGGER.info("Shutting down...");
+				LOGGER.info("Shutting down...");
 
 				if(g.isOpen()) {
 					g.commit();
@@ -216,7 +218,7 @@ public class TitanEventWriterD {
 				puller.close();
 				context.term();
 
-				_LOGGER.info("Good bye.");
+				LOGGER.info("Good bye.");
 			}
 		};
 
@@ -496,7 +498,7 @@ public class TitanEventWriterD {
 
 			
 		} else {
-			LOGGER.warning("Event topic: " + topic + " not recognized.");
+			LOGGER.warn("Event topic: " + topic + " not recognized.");
 		}
 	}
 

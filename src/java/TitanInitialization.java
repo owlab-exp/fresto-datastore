@@ -22,10 +22,11 @@ public class TitanInitialization {
 		//Elasticsearch Configuration
 		conf.setProperty("storage.index.search.backend", "elasticsearch");
 		conf.setProperty("storage.index.search.hostname", "fresto2,fresto3,fresto4");
-		conf.setProperty("storage.index.search.index-name", "fresto");
+		//conf.setProperty("storage.index.search.index-name", "fresto");
 		conf.setProperty("storage.index.search.client-only", "true");
 		TitanGraph g = TitanFactory.open(conf);
 
+		/**
 		//// To search event by its name
 		////g.makeType().name("event").dataType(String.class).indexed(Vertex.class).unique(Direction.OUT).indexed(Edge.class).unique(Direction.OUT).makePropertyKey();
 		////g.makeType().name("uuid").dataType(String.class).indexed(Vertex.class).unique(Direction.OUT).makePropertyKey();
@@ -34,6 +35,7 @@ public class TitanInitialization {
 		////g.makeType().name("elapsedTime").dataType(Long.class).indexed(Vertex.class).unique(Direction.OUT).makePropertyKey();
 
 		////g.makeType().name("second").dataType(Long.class).indexed(Vertex.class).makePropertyKey();
+		*/
 		//g.makeType().name("second").dataType(Long.class).indexed(Vertex.class).unique(Direction.OUT).makePropertyKey();
 		//g.makeType().name("guuid").dataType(String.class).indexed(Vertex.class).unique(Direction.OUT).makePropertyKey();
 
