@@ -9,6 +9,8 @@
  * you may not use this file except in compliance with the License.                   *
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 * 
  **************************************************************************************/
+package fresto.datastore;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +45,8 @@ import fresto.data.SqlCallEdge;
 import fresto.data.SqlReturnEdge;
 import fresto.command.CommandEvent;
 
+import fresto.datastore.FrestoEventQueue;
+import fresto.datastore.FrestoEvent;
 //import org.perf4j.javalog.JavaLogStopWatch;
 //import org.perf4j.StopWatch;
 

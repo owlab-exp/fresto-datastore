@@ -1,3 +1,5 @@
+package fresto.datastore.titan;
+
 import org.apache.commons.configuration.BaseConfiguration;
 import org.apache.commons.configuration.Configuration;
 import com.thinkaurelius.titan.core.TitanFactory;

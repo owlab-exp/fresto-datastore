@@ -1,6 +1,7 @@
 <project name="Event Store" default="dist" basedir=".">
 <!-- Define the properties used by the build -->
 <property name="jar.name"    value="fresto-datastore"/>
+<property name="jar.version"    value="0.85-alpha"/>
 <property name="build.home"    value="${basedir}/build"/>
 <property name="dist.home"     value="${basedir}/dist"/>
 <property name="docs.home"     value="${basedir}/docs"/>
@@ -61,7 +62,7 @@
 </target>
 
 <target name="dist" depends="compile" description="Create a jar file for binary distribution">
-	<jar jarfile="${dist.home}/${jar.name}.jar" basedir="${build.home}/classes"/>
+	<jar jarfile="${dist.home}/${jar.name}-${jar.version}.jar" basedir="${build.home}/classes"/>
 </target>
 
 </project> 

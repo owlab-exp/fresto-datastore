@@ -1,3 +1,5 @@
+package fresto.util;
+
 public class FrestoStopWatch {
     public long startTime;
     public long endTime;
