@@ -52,7 +52,6 @@
 		<classpath refid="compile.classpath"/>
 		<src path="${src-fresto-events.home}"/>
 		<src path="${src.home}/java"/>
-		<src path="${test.home}/java"/>
 	</javac>
 	<!--
 	<javac srcdir="${test.home}/java" destdir="${build.home}/classes">
