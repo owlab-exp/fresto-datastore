@@ -3,9 +3,9 @@ CLASSPATH=$CLASSPATH:./lib/*
 #CLASSPATH=$CLASSPATH:/working/servers/hadoop/lib/*
 export CLASSPATH
 MAIN_CLASS=fresto.datastore.titan.TitanEventWriter
-STREAMER_URL=tcp://localhost:7002
+STREAMER_URL=tcp://<host name of streamer>:7002
 STORAGE_BACKEND=cassandra
-STORAGE_HOSTNAME=fresto2.owlab.com
+STORAGE_HOSTNAME=<host name of cassandra>
 MAX_COMMIT_COUNT=3000
 LOG_FILE=titan_event_writer.log
 #java -Xmx256m -XX:+AggressiveOpts -XX:CompileThreshold=200 -cp $CLASSPATH $@
