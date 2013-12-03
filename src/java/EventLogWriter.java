@@ -433,7 +433,6 @@ public class EventLogWriter {
 				//Vertex v = g.add//Vertex(null);
 					System.out.println("event: " + "OperationReturn");
 					System.out.println("operationName: " + operationId.getOperationName());
-					System.out.println("operationName: " + operationId.getOperationName());
 					System.out.println("typeName: " + operationId.getTypeName());
 					System.out.println("timestamp: " + operationReturnEdge.timestamp);
 					System.out.println("elapsedTime: " + operationReturnEdge.elapsedTime);
